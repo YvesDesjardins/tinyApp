@@ -1,9 +1,13 @@
-var express = require("express");
-var app = express();
-var PORT = 8080; // default port 8080
+let express = require("express");
+let app = express();
+let PORT = 8080; // default port 8080
+const bodyParser = require("body-parser");
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.set("view engine", "ejs");
 
-var urlDatabase = {
+let urlDatabase = {
   "b2xVn2": "http://www.lighthouselabs.ca",
   "9sm5xK": "http://www.google.com"
 };
