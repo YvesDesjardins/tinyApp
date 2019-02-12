@@ -42,3 +42,19 @@ app.get("/hello", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);
 });
+
+console.log(generateRandomString());
+
+function generateRandomString() {
+  // generate and return 6 random alpha-numeric characters
+  let out = '';
+  for (let i = 0; i < 6; i++) {
+    out += generateRandomNumber(16).toString(16);
+  }
+
+  return out;
+}
+
+function generateRandomNumber(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
