@@ -24,7 +24,13 @@ app.get("/urls", (req, res) => {
 app.post("/urls", (req, res) => {
   console.log(req.body); // Log the POST request body to the console
   let tempID = generateRandomString();
-  urlDatabase[tempID] = req.body.longURL;
+  let tempLongURL = req.body.longURL;
+
+  if (!tempLongURL.startsWith('http://')) {
+    tempLongURL = `http://${tempLongURL}`;
+  }
+
+  urlDatabase[tempID] = tempLongURL;
   res.redirect(`/urls/${tempID}`);
 });
 app.get("/urls/new", (req, res) => {
