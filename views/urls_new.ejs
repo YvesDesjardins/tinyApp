@@ -10,9 +10,11 @@
     <title>New URL - TinyApp Example</title>
   </head>
 
+  <header>
+  <% include ./partials/_headers %>
+  </header>
+  
   <body style="font-size:20px; padding:50px;">
-
-    <% include partials/_headers %>
 
     <h3>Create TinyURL</h3>
     <form class="form-inline" action="/urls" method="POST">
