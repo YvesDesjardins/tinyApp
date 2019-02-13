@@ -95,10 +95,7 @@ function generateRandomString() {
     out += generateRandomNumber(16).toString(16);
   }
 
-  if (urlDatabase[out]) {
-    return generateRandomString();
-  }
-  return out;
+  return urlDatabase[out] ? generateRandomString() : out;
 }
 
 function generateRandomNumber(max) {
