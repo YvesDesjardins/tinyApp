@@ -21,12 +21,11 @@
   <% for(let elem in urls) { %>
   <li>
     <a href="/urls/<%= elem %>">
-      <%= elem %></a> : <a href=<%=urls[elem] %>>
+      <%= elem %></a> :
+    <a href=<%=urls[elem] %>>
       <%= urls[elem] %></a> -
     <form action="/urls/<%= elem %>/delete" method="POST">
-      <div>
-        <button type="submit" value="<%= elem %>">Delete</button>
-      </div>
+      <button type="submit" value="<%= elem %>">Delete 🗑</button>
     </form>
   </li>
   <% } %>
