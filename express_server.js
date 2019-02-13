@@ -12,9 +12,12 @@ let urlDatabase = {
   "9sm5xK": "http://www.google.com"
 };
 
+// ******************************************************************
+// app responses to client requests
 app.get("/", (req, res) => {
   res.send("Hello!");
 });
+
 app.get("/urls", (req, res) => {
   let templateVars = {
     urls: urlDatabase
@@ -33,9 +36,11 @@ app.post("/urls", (req, res) => {
   urlDatabase[tempID] = tempLongURL;
   res.redirect(`/urls/${tempID}`);
 });
+
 app.get("/urls/new", (req, res) => {
   res.render("urls_new");
 });
+
 app.get("/urls/:shortURL", (req, res) => {
   let templateVars = {
     shortURL: req.params.shortURL,
@@ -47,9 +52,8 @@ app.get("/u/:shortURL", (req, res) => {
   const longURL = urlDatabase[req.params.shortURL];
   res.redirect(longURL);
 });
-app.get("/hello", (req, res) => {
-  res.send("<html><body>Hello <b>World</b></body></html>\n");
-});
+// end responses to client requests
+// ******************************************************************
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);
