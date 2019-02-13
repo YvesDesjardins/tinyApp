@@ -12,11 +12,11 @@
 <% include ./partials/_headers %>
 </header>
 <body style="font-size:20px; padding:50px;">
-    <!-- Shorten new link link-->
-    <a href='/urls/new'>Create a new TinyURL</a>
-    <!-- Add EJS code here -->
-    <% for(let elem in urls) { %>
-        <li><%= elem %> - <%= urls[elem] %></li>
-    <% } %>
+  <!-- Shorten new link link-->
+  <a href='/urls/new'>Create a new TinyURL</a>
+  <!-- Add EJS code here -->
+  <% for(let elem in urls) { %>
+    <li><%= elem %> - <%= urls[elem] %></li>
+  <% } %>
 </body>
 </html>
