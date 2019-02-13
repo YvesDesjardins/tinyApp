@@ -45,14 +45,7 @@ app.post("/urls/:shortURL/delete", (req, res) => {
   res.redirect('/urls');
 });
 
-app.post("/urls/:shortURL", (req, res) => {
-  let templateVars = {
-    shortURL: req.params.shortURL,
-    longURL: urlDatabase[req.params.shortURL],
-    username: req.cookies["username"]
-  };
-  res.render("urls_edit", templateVars);
-});
+
 app.get("/urls/:shortURL", (req, res) => {
   let templateVars = {
     shortURL: req.params.shortURL,
@@ -60,6 +53,14 @@ app.get("/urls/:shortURL", (req, res) => {
     username: req.cookies["username"]
   };
   res.render("urls_show", templateVars);
+});
+app.post("/urls/:shortURL", (req, res) => {
+  let templateVars = {
+    shortURL: req.params.shortURL,
+    longURL: urlDatabase[req.params.shortURL],
+    username: req.cookies["username"]
+  };
+  res.render("urls_edit", templateVars);
 });
 
 app.post("/urls/:shortURL/edit", (req, res) => {
@@ -101,11 +102,11 @@ function generateRandomNumber(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
 
-function checkURL(text) {
+function checkURL(url) {
   // if client didn't start url with http:// add it for them
-  if (!text.startsWith('http://')) {
-    return `http://${text}`;
+  if (!url.startsWith('http://')) {
+    return `http://${url}`;
   }
 
-  return text;
+  return url;
 }
