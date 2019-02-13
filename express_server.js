@@ -25,7 +25,6 @@ app.get("/urls", (req, res) => {
   res.render("urls_index", templateVars);
 });
 app.post("/urls", (req, res) => {
-  console.log(req.body); // Log the POST request body to the console
   let tempID = generateRandomString();
   let tempLongURL = req.body.longURL;
 

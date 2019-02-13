@@ -24,11 +24,11 @@
       <%= elem %></a> :
     <a href=<%=urls[elem] %>>
       <%= urls[elem] %></a> -
-    <form action="/urls/<%= elem %>" method="POST">
-      <button type="submit" class="btn btn-primary" value="<%= elem %>">Edit</button>
+    <form class="form-inline" action="/urls/<%= elem %>" method="POST">
+      <button type="submit" class="btn btn-primary mb2" value="<%= elem %>">Edit</button>
     </form>
-    <form action="/urls/<%= elem %>/delete" method="POST">
-      <button type="submit" class="btn btn-primary" value="<%= elem %>">Delete 🗑</button>
+    <form class="form-inline" action="/urls/<%= elem %>/delete" method="POST">
+      <button type="submit" class="btn btn-primary mb2" value="<%= elem %>">Delete 🗑</button>
     </form>
   </li>
   <% } %>
