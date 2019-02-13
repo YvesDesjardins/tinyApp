@@ -13,10 +13,10 @@
 </header>
 <body style="font-size:20px; padding:50px;">
   <!-- Shorten new link link-->
-  <a href='/urls/new'>Create a new TinyURL</a>
+  <a href='/urls/new'>Create a new TinyURL</a><br><br>
   <!-- Add EJS code here -->
   <% for(let elem in urls) { %>
-    <li><%= elem %> - <%= urls[elem] %></li>
+    <li><a href= "/urls/<%= elem %>"><%= elem %></a> - <a href= <%= urls[elem] %>><%= urls[elem] %></a></li>
   <% } %>
 </body>
 </html>
