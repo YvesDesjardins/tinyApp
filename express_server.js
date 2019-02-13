@@ -6,7 +6,7 @@ let cookieParser = require('cookie-parser')
 app.use(bodyParser.urlencoded({
   extended: true
 }));
-app.use(cookieParser())
+app.use(cookieParser());
 app.set("view engine", "ejs");
 
 let urlDatabase = {
@@ -23,9 +23,8 @@ app.get("/", (req, res) => {
 app.get("/urls", (req, res) => {
   let templateVars = {
     urls: urlDatabase,
-    username: req.cookie["username"]
+    username: req.cookies["username"]
   };
-  console.log(req.cookies);
   res.render("urls_index", templateVars);
 });
 app.post("/urls", (req, res) => {
