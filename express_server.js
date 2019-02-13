@@ -29,6 +29,7 @@ app.post("/urls", (req, res) => {
   let tempID = generateRandomString();
   let tempLongURL = req.body.longURL;
 
+  // if client didn't start url with http:// add it for them
   if (!tempLongURL.startsWith('http://')) {
     tempLongURL = `http://${tempLongURL}`;
   }
