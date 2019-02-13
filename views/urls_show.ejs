@@ -15,8 +15,9 @@
   <!-- Shorten new link link-->
   <a href='/urls/new'>Create a new TinyURL</a><br><br>
   <!-- Add EJS code here -->
-  TinyURL for <%= longURL[shortURL] %><br>
-  <%= shortURL %><br><br>
+  TinyURL for <a href =<%= longURL[shortURL] %>><%= longURL[shortURL] %></a><br>
+  <a href="/u/<%= shortURL %>"><%= shortURL %></a>
+  <br><br>
   <a href='/urls'>Go back</a>
 </body>
 </html>
