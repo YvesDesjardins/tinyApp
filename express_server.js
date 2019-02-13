@@ -29,12 +29,7 @@ app.get("/urls", (req, res) => {
 });
 app.post("/urls", (req, res) => {
   let tempID = generateRandomString();
-  let tempLongURL = req.body.longURL;
-
-  // if client didn't start url with http:// add it for them
-  if (!tempLongURL.startsWith('http://')) {
-    tempLongURL = `http://${tempLongURL}`;
-  }
+  let tempLongURL = checkURL(req.body.longURL);
 
   urlDatabase[tempID] = tempLongURL;
   res.redirect(`/urls/${tempID}`);
@@ -68,7 +63,7 @@ app.get("/urls/:shortURL", (req, res) => {
 });
 
 app.post("/urls/:shortURL/edit", (req, res) => {
-  urlDatabase[req.params.shortURL] = req.body.longURL;
+  urlDatabase[req.params.shortURL] = checkURL(req.body.longURL);
   res.redirect('/urls');
 });
 
@@ -104,4 +99,13 @@ function generateRandomString() {
 
 function generateRandomNumber(max) {
   return Math.floor(Math.random() * Math.floor(max));
+}
+
+function checkURL(text) {
+  // if client didn't start url with http:// add it for them
+  if (!text.startsWith('http://')) {
+    return `http://${text}`;
+  }
+
+  return text;
 }
