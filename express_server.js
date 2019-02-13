@@ -107,9 +107,5 @@ function generateRandomNumber(max) {
 
 function checkURL(url) {
   // if client didn't start url with http:// add it for them
-  if (!url.startsWith('http://')) {
-    return `http://${url}`;
-  }
-
-  return url;
+  return !url.startsWith('http://') ? `http://${url}` : url;
 }
