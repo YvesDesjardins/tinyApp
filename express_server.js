@@ -15,7 +15,7 @@ let urlDatabase = {
 // ******************************************************************
 // app responses to client requests
 app.get("/", (req, res) => {
-  res.send("Hello!");
+  res.redirect('/urls');
 });
 
 app.get("/urls", (req, res) => {
@@ -41,6 +41,11 @@ app.post("/urls", (req, res) => {
 app.get("/urls/new", (req, res) => {
   res.render("urls_new");
 });
+app.get("/urls/:shortURL/delete", (req, res) => {
+  delete urlDatabase[req.params.shortURL];
+  console.log(`Delete ${req.params.shortURL}`);
+  res.redirect('/urls');
+});
 
 app.get("/urls/:shortURL", (req, res) => {
   let templateVars = {
@@ -53,6 +58,7 @@ app.get("/u/:shortURL", (req, res) => {
   const longURL = urlDatabase[req.params.shortURL];
   res.redirect(longURL);
 });
+
 // end responses to client requests
 // ******************************************************************
 

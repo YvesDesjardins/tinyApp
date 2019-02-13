@@ -16,7 +16,10 @@
   <a href='/urls/new'>Create a new TinyURL</a><br><br>
   <!-- Add EJS code here -->
   <% for(let elem in urls) { %>
-    <li><a href= "/urls/<%= elem %>"><%= elem %></a> - <a href= <%= urls[elem] %>><%= urls[elem] %></a></li>
+    <li>
+    <a href= "/urls/<%= elem %>"><%= elem %></a> : <a href= <%= urls[elem] %>><%= urls[elem] %></a> - <a href="/urls/<%= elem %>/delete">Delete</a>
+    </form>
+    </li>
   <% } %>
 </body>
 </html>
