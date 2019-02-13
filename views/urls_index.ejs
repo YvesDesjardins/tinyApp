@@ -1,25 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+    crossorigin="anonymous">
   <title>TinyApp</title>
 </head>
 <header>
-<% include ./partials/_headers %>
+  <% include ./partials/_headers %>
 </header>
+
 <body style="font-size:20px; padding:50px;">
   <!-- Shorten new link link-->
   <a href='/urls/new'>Create a new TinyURL</a><br><br>
   <!-- Add EJS code here -->
   <% for(let elem in urls) { %>
-    <li>
-    <a href= "/urls/<%= elem %>"><%= elem %></a> : <a href= <%= urls[elem] %>><%= urls[elem] %></a> - <a href="/urls/<%= elem %>/delete">Delete</a>
+  <li>
+    <a href="/urls/<%= elem %>">
+      <%= elem %></a> : <a href=<%=urls[elem] %>>
+      <%= urls[elem] %></a> -
+    <form action="/urls/<%= elem %>/delete" method="POST">
+      <div>
+        <button type="submit" value="<%= elem %>">Delete</button>
+      </div>
     </form>
-    </li>
+  </li>
   <% } %>
 </body>
+
 </html>
