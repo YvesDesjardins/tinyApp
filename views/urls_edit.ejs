@@ -18,20 +18,19 @@
   <!-- Shorten new link link-->
   <a href='/urls/new'>Create a new TinyURL</a><br><br>
   <!-- Add EJS code here -->
-  <% for(let elem in urls) { %>
-  <li>
-    <a href="/urls/<%= elem %>">
-      <%= elem %></a> :
-    <a href=<%=urls[elem] %>>
-      <%= urls[elem] %></a> -
-    <form action="/urls/<%= elem %>" method="POST">
-      <button type="submit" class="btn btn-primary" value="<%= elem %>">Edit</button>
-    </form>
-    <form action="/urls/<%= elem %>/delete" method="POST">
-      <button type="submit" class="btn btn-primary" value="<%= elem %>">Delete 🗑</button>
-    </form>
-  </li>
-  <% } %>
+  <h4>shortURL :
+    <%= shortURL %></a></h4>
+
+  <form class="form-inline" action="/urls/<%= shortURL%>/edit" method="POST">
+    <div class="form-group mb-2">
+      <label for="longURL">Enter updated URL:</label>
+      <input class="form-control" type="text" name="longURL" placeholder="<%= longURL%>" style="width: 300px; margin: 1em">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </form>
+
+  <br><br>
+  <a href='/urls'>Go back</a>
 </body>
 
 </html>
