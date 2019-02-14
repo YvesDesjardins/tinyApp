@@ -79,27 +79,39 @@ app.post("/urls/:shortURL/delete", (req, res) => {
 
 
 app.get("/urls/:shortURL", (req, res) => {
-  let templateVars = {
-    shortURL: req.params.shortURL,
-    longURL: urlDatabase,
-    users: usersDatabase,
-    userID: req.cookies["userID"]
-  };
-  res.render("urls_show", templateVars);
+  if (urlDatabase[req.params.shortURL].userID === req.cookies["userID"]) {
+    let templateVars = {
+      shortURL: req.params.shortURL,
+      longURL: urlDatabase,
+      users: usersDatabase,
+      userID: req.cookies["userID"]
+    };
+    res.render("urls_show", templateVars);
+  } else {
+    res.status(401).send("Unauthorized Access");
+  }
 });
 app.post("/urls/:shortURL", (req, res) => {
-  let templateVars = {
-    shortURL: req.params.shortURL,
-    longURL: urlDatabase[req.params.shortURL],
-    users: usersDatabase,
-    userID: req.cookies["userID"]
-  };
-  res.render("urls_edit", templateVars);
+  if (urlDatabase[req.params.shortURL].userID === req.cookies["userID"]) {
+    let templateVars = {
+      shortURL: req.params.shortURL,
+      longURL: urlDatabase[req.params.shortURL],
+      users: usersDatabase,
+      userID: req.cookies["userID"]
+    };
+    res.render("urls_edit", templateVars);
+  } else {
+    res.status(401).send("Unauthorized Access");
+  }
 });
 
 app.post("/urls/:shortURL/edit", (req, res) => {
-  urlDatabase[req.params.shortURL] = checkURL(req.body.longURL);
-  res.redirect('/urls');
+  if (urlDatabase[req.params.shortURL].userID === req.cookies["userID"]) {
+    urlDatabase[req.params.shortURL] = checkURL(req.body.longURL);
+    res.redirect('/urls');
+  } else {
+    res.status(401).send("Unauthorized Access");
+  }
 });
 
 app.get("/login", (req, res) => {
