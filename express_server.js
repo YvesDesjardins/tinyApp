@@ -96,21 +96,20 @@ app.get("/register", (req, res) => {
   res.render("register", templateVars);
 });
 app.post("/register", (req, res) => {
-  // checks if username exists, fail if it does, otherwise write new user
-  // to database
-  // username, email, password
   let user = req.body.username;
-  if (usersDatabase[user]) {
-    res.redirect("register");
-  } else {
+
+  if (!usersDatabase[user] && checkEmail(req.body.email) &&
+    req.body.password !== "") {
     usersDatabase[user] = {
       username: user,
       email: req.body.email,
       password: req.body.password
-    }
+    };
     res.cookie("username", user);
     res.redirect("/urls");
   }
+  res.status(400);
+  res.redirect("register");
 });
 
 app.get("/u/:shortURL", (req, res) => {
@@ -138,4 +137,8 @@ function generateRandomNumber(max) {
 
 function checkURL(url) {
   return url.startsWith('http://') ? url : `http://${url}`;
+}
+
+function checkEmail(email) {
+  return email !== "";
 }
