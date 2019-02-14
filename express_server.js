@@ -35,7 +35,8 @@ app.get("/", (req, res) => {
 app.get("/urls", (req, res) => {
   let templateVars = {
     urls: urlDatabase,
-    username: req.cookies["username"]
+    users: usersDatabase,
+    userID: req.cookies["userID"]
   };
   res.render("urls_index", templateVars);
 });
@@ -49,7 +50,8 @@ app.post("/urls", (req, res) => {
 
 app.get("/urls/new", (req, res) => {
   res.render("urls_new", {
-    username: req.cookies["username"]
+    users: usersDatabase,
+    userID: req.cookies["userID"]
   });
 });
 app.post("/urls/:shortURL/delete", (req, res) => {
@@ -62,7 +64,8 @@ app.get("/urls/:shortURL", (req, res) => {
   let templateVars = {
     shortURL: req.params.shortURL,
     longURL: urlDatabase,
-    username: req.cookies["username"]
+    users: usersDatabase,
+    userID: req.cookies["userID"]
   };
   res.render("urls_show", templateVars);
 });
@@ -70,7 +73,8 @@ app.post("/urls/:shortURL", (req, res) => {
   let templateVars = {
     shortURL: req.params.shortURL,
     longURL: urlDatabase[req.params.shortURL],
-    username: req.cookies["username"]
+    users: usersDatabase,
+    userID: req.cookies["userID"]
   };
   res.render("urls_edit", templateVars);
 });
@@ -81,17 +85,18 @@ app.post("/urls/:shortURL/edit", (req, res) => {
 });
 
 app.post("/login", (req, res) => {
-  res.cookie("username", req.body.username);
+  res.cookie("userID", req.body.userID);
   res.redirect('/urls');
 });
 app.post("/logout", (req, res) => {
-  res.clearCookie("username");
+  res.clearCookie("userID");
   res.redirect('/urls');
 });
 
 app.get("/register", (req, res) => {
   let templateVars = {
-    username: req.cookies["username"]
+    users: usersDatabase,
+    userID: req.cookies["userID"]
   };
   res.render("register", templateVars);
 });
@@ -107,7 +112,7 @@ app.post("/register", (req, res) => {
       password: req.body.password
     };
 
-    res.cookie("username", usersDatabase[user].email);
+    res.cookie("userID", user);
     res.redirect("/urls");
   } else {
     res.status(400).send("Error, invalid email / password");

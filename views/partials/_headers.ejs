@@ -3,10 +3,10 @@
 
 <body>
   <h1>TinyApp</h1>
-  <% if(!username){%>
+  <% if(!userID){%>
   <form class="form-inline" action="/login" method="POST">
     <div>
-      <input class="form-control" type="text" name="username" placeholder="Username" style="width: 300px; margin: 1em">
+      <input class="form-control" type="text" name="userID" placeholder="example@email.com" style="width: 300px; margin: 1em">
     </div>
     <button type="submit" class="btn btn-primary mb2">Login</button>
   </form>
@@ -14,10 +14,10 @@
     <button type="submit" class="btn btn-primary mb2">Register</button>
   </form>
   <%}%>
-  <% if(username && username !== undefined){%>
+  <% if(userID){%>
   <form class="form-inline" action="/logout" method="POST">
     <h5>Welcome,&nbsp
-      <%= username %>!&nbsp&nbsp</h5>
+      <%= users[userID].email %>!&nbsp&nbsp</h5>
     <div class="form-group mb-2">
       <button type="submit" class="btn btn-primary mb2">Logout</button>
     </div>
