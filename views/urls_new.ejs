@@ -20,6 +20,12 @@
 
   <h3>Create TinyURL</h3>
   <hr><br>
+  <% if(!userID) {%>
+  <p>
+    <h5>Please login before creating a tinyURL!</h5>
+  </p>
+  <% }%>
+  <% if(userID) {%>
   <form class="form-inline" action="/urls" method="POST">
     <div class="form-group mb-2">
       <label for="longURL">Enter a URL:</label>
@@ -29,5 +35,6 @@
   </form><br><br>
   <a href='/urls'>Go back</a>
 </body>
+<% } %>
 
 </html>
