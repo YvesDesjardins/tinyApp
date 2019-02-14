@@ -49,7 +49,7 @@ app.get("/", (req, res) => {
 
 app.get("/urls", (req, res) => {
   let templateVars = {
-    urls: urlDatabase,
+    urls: urlsForUserID(req.cookies["userID"]),
     users: usersDatabase,
     userID: req.cookies["userID"]
   };
@@ -59,7 +59,6 @@ app.post("/urls", (req, res) => {
   let tempID = generateRandomString();
 
   urlDatabase[tempID] = {
-    id: tempID,
     longURL: checkURL(req.body.longURL),
     userID: req.cookies["userID"]
   };
@@ -202,4 +201,16 @@ function emailToID(email) {
   }
 
   return false;
+}
+
+function urlsForUserID(id) {
+  let temp = {};
+  for (const key in urlDatabase) {
+    if (urlDatabase[key].userID === id) {
+      temp[key] = urlDatabase[key];
+    }
+  }
+
+  console.log(temp);
+  return temp;
 }
