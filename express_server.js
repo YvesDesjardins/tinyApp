@@ -95,6 +95,16 @@ app.get("/register", (req, res) => {
 app.post("/register", (req, res) => {
   // checks if username exists, fail if it does, otherwise write new user
   // to database
+  // username, email, password
+  let user = req.body.username;
+  if (usersDatabase[user]) {
+    res.redirect("register");
+  }
+  usersDatabase[user] = {
+    username: user,
+    email: req.body.email,
+    password: req.body.password
+  }
 });
 
 app.get("/u/:shortURL", (req, res) => {
