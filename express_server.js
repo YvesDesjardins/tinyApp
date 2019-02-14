@@ -23,6 +23,11 @@ let usersDatabase = {
     id: "user2RandomID",
     email: "user2@example.com",
     password: "dishwasher-funk"
+  },
+  "123": {
+    id: "123",
+    email: "test",
+    password: "test"
   }
 }
 
@@ -84,10 +89,25 @@ app.post("/urls/:shortURL/edit", (req, res) => {
   res.redirect('/urls');
 });
 
-app.post("/login", (req, res) => {
-  res.cookie("userID", req.body.userID);
-  res.redirect('/urls');
+app.get("/login", (req, res) => {
+  let templateVars = {
+    users: usersDatabase,
+    userID: req.cookies["userID"]
+  };
+  res.render('login', templateVars);
 });
+app.post("/login", (req, res) => {
+  let userEmail = req.body.email;
+  let userID = emailToID(userEmail);
+
+  if (!isEmailFree(userEmail) && passwordVerify(userID, req.body.password)) {
+    res.cookie("userID", userID);
+    res.redirect('/urls');
+  } else {
+    res.status(400).send("Error, invalid email / password");
+  }
+});
+
 app.post("/logout", (req, res) => {
   res.clearCookie("userID");
   res.redirect('/urls');
@@ -147,15 +167,28 @@ function checkURL(url) {
 }
 
 function isEmailFree(email) {
-  let tempBool = true;
-
   for (const key in usersDatabase) {
-    if (usersDatabase.hasOwnProperty(key)) {
-      const element = usersDatabase[key];
-
-      tempBool = element.email !== email;
+    if (usersDatabase[key].email === email) {
+      return false;
     }
   }
 
-  return tempBool;
+  return true;
+}
+
+function passwordVerify(id, pass) {
+  console.log(usersDatabase[id].password, " === ", pass);
+
+  return usersDatabase[id].password.toString() === pass.toString();
+}
+
+function emailToID(email) {
+  console.log('***', email, '***');
+  for (const key in usersDatabase) {
+    if (usersDatabase[key].email === email) {
+      return usersDatabase[key].id;
+    }
+  }
+
+  return false;
 }

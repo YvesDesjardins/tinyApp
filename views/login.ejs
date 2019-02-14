@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+    crossorigin="anonymous">
+
+  <title>New URL - TinyApp Example</title>
+</head>
+
+<header>
+  <% include ./partials/_headers %>
+</header>
+
+<body style="font-size:20px; padding:50px;">
+
+  <h3>Login to existing account</h3>
+  <hr><br>
+  <form action="/login" method="POST">
+    <label for="Email">Email:</label>
+    <input class="form-control" type="text" name="email" style="width: 300px; margin: 1em">
+    <label for="Password">Password:</label>
+    <input class="form-control" type="text" name="password" style="width: 300px; margin: 1em">
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form><br><br>
+  <a href='/urls'>Go back</a>
+</body>
+
+</html>
