@@ -17,6 +17,10 @@ const urlDatabase = {
   i3BoGr: {
     longURL: "https://www.google.ca",
     userID: "aJ48lW"
+  },
+  j2ufo2: {
+    longURL: "https://www.lighthouselabs.ca",
+    userID: "abc123"
   }
 };
 const usersDatabase = {
@@ -29,6 +33,11 @@ const usersDatabase = {
     id: "user2RandomID",
     email: "user2@example.com",
     password: "dishwasher-funk"
+  },
+  "abc123": {
+    id: "abc123",
+    email: "test",
+    password: "test"
   }
 }
 
@@ -50,15 +59,19 @@ app.post("/urls", (req, res) => {
   let tempID = generateRandomString();
   let tempLongURL = checkURL(req.body.longURL);
 
-  urlDatabase[tempID] = tempLongURL;
+  urlDatabase[tempID] = {
+    tempLongURL,
+    userID: req.cookies["userID"]
+  };
   res.redirect(`/urls/${tempID}`);
 });
 
 app.get("/urls/new", (req, res) => {
-  res.render("urls_new", {
+  let templateVars = {
     users: usersDatabase,
     userID: req.cookies["userID"]
-  });
+  }
+  res.render("urls_new", templateVars);
 });
 app.post("/urls/:shortURL/delete", (req, res) => {
   delete urlDatabase[req.params.shortURL];

@@ -21,17 +21,19 @@
   <!-- Add EJS code here -->
   <% for(let elem in urls) { %>
   <form class="form-inline" action="/urls/<%= elem %>" method="POST">
+    <% if ( urls[elem].userID === userID) { %>
     <li>
       <a href="/urls/<%= elem %>">
         <%= elem %></a>&nbsp:&nbsp
       <a href=<%=urls[elem] %>>
-        <%= urls[elem] %></a>&nbsp-&nbsp
+        <%= urls[elem].longURL %></a>&nbsp-&nbsp
       <button type="submit" class="btn btn-primary mb2" value="<%= elem %>">Edit</button>
   </form>
   <form class="form-inline" action="/urls/<%= elem %>/delete" method="POST">
     <button type="submit" class="btn btn-primary mb2" value="<%= elem %>">Delete 🗑</button>
   </form>
   </li>
+  <% } %>
   <% } %>
 </body>
 
