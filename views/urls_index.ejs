@@ -19,8 +19,8 @@
   <a href='/urls/new'>Create a new TinyURL</a><br><br>
   <!-- Add EJS code here -->
   <% for(let elem in urls) { %>
-  <li>
-    <form class="form-inline" action="/urls/<%= elem %>" method="POST">
+  <form class="form-inline" action="/urls/<%= elem %>" method="POST">
+    <li>
       <a href="/urls/<%= elem %>">
         <%= elem %></a>&nbsp:&nbsp
       <a href=<%=urls[elem] %>>
@@ -29,7 +29,7 @@
       <form class="form-inline" action="/urls/<%= elem %>/delete" method="POST">
         <button type="submit" class="btn btn-primary mb2" value="<%= elem %>">Delete 🗑</button>
       </form>
-    </form>
+  </form>
   </li>
   <% } %>
 </body>
