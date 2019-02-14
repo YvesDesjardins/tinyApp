@@ -20,15 +20,15 @@
   <!-- Add EJS code here -->
   <% for(let elem in urls) { %>
   <li>
-    <a href="/urls/<%= elem %>">
-      <%= elem %></a> :
-    <a href=<%=urls[elem] %>>
-      <%= urls[elem] %></a> -
     <form class="form-inline" action="/urls/<%= elem %>" method="POST">
+      <a href="/urls/<%= elem %>">
+        <%= elem %></a>&nbsp:&nbsp
+      <a href=<%=urls[elem] %>>
+        <%= urls[elem] %></a>&nbsp-&nbsp
       <button type="submit" class="btn btn-primary mb2" value="<%= elem %>">Edit</button>
-    </form>
-    <form class="form-inline" action="/urls/<%= elem %>/delete" method="POST">
-      <button type="submit" class="btn btn-primary mb2" value="<%= elem %>">Delete 🗑</button>
+      <form class="form-inline" action="/urls/<%= elem %>/delete" method="POST">
+        <button type="submit" class="btn btn-primary mb2" value="<%= elem %>">Delete 🗑</button>
+      </form>
     </form>
   </li>
   <% } %>
