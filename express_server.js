@@ -108,8 +108,8 @@ app.post("/register", (req, res) => {
     res.cookie("username", user);
     res.redirect("/urls");
   }
-  res.status(400);
-  res.redirect("register");
+  res.status(400).send("Error, username taken / invalid email " +
+    "/ invalid password");
 });
 
 app.get("/u/:shortURL", (req, res) => {
