@@ -85,9 +85,7 @@ app.get("/u/:shortURL", (req, res) => {
 // end responses to client requests
 // ******************************************************************
 
-app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}!`);
-});
+app.listen(PORT);
 
 function generateRandomString() {
   let out = '';
