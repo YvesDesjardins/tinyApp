@@ -9,11 +9,17 @@ app.use(bodyParser.urlencoded({
 app.use(cookieParser());
 app.set("view engine", "ejs");
 
-let urlDatabase = {
-  "b2xVn2": "http://www.lighthouselabs.ca",
-  "9sm5xK": "http://www.google.com"
+const urlDatabase = {
+  b6UTxQ: {
+    longURL: "https://www.tsn.ca",
+    userID: "aJ48lW"
+  },
+  i3BoGr: {
+    longURL: "https://www.google.ca",
+    userID: "aJ48lW"
+  }
 };
-let usersDatabase = {
+const usersDatabase = {
   "userRandomID": {
     id: "userRandomID",
     email: "user@example.com",
