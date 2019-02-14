@@ -23,11 +23,6 @@ let usersDatabase = {
     id: "user2RandomID",
     email: "user2@example.com",
     password: "dishwasher-funk"
-  },
-  "123": {
-    id: "123",
-    email: "test",
-    password: "test"
   }
 }
 
@@ -104,7 +99,7 @@ app.post("/login", (req, res) => {
     res.cookie("userID", userID);
     res.redirect('/urls');
   } else {
-    res.status(400).send("Error, invalid email / password");
+    res.status(403).send("Error, invalid email / password");
   }
 });
 
@@ -177,13 +172,10 @@ function isEmailFree(email) {
 }
 
 function passwordVerify(id, pass) {
-  console.log(usersDatabase[id].password, " === ", pass);
-
   return usersDatabase[id].password.toString() === pass.toString();
 }
 
 function emailToID(email) {
-  console.log('***', email, '***');
   for (const key in usersDatabase) {
     if (usersDatabase[key].email === email) {
       return usersDatabase[key].id;
