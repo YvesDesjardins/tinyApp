@@ -96,20 +96,22 @@ app.get("/register", (req, res) => {
   res.render("register", templateVars);
 });
 app.post("/register", (req, res) => {
-  let user = req.body.username;
+  // tempory id solution
+  let user = generateRandomString();
 
-  if (!usersDatabase[user] && checkEmail(req.body.email) &&
+  if (isEmailFree(req.body.email) && req.body.email !== "" &&
     req.body.password !== "") {
     usersDatabase[user] = {
-      username: user,
+      id: user,
       email: req.body.email,
       password: req.body.password
     };
-    res.cookie("username", user);
+
+    res.cookie("username", usersDatabase[user].email);
     res.redirect("/urls");
+  } else {
+    res.status(400).send("Error, invalid email / password");
   }
-  res.status(400).send("Error, username taken / invalid email " +
-    "/ invalid password");
 });
 
 app.get("/u/:shortURL", (req, res) => {
@@ -139,6 +141,16 @@ function checkURL(url) {
   return url.startsWith('http://') ? url : `http://${url}`;
 }
 
-function checkEmail(email) {
-  return email !== "";
+function isEmailFree(email) {
+  let tempBool = true;
+
+  for (const key in usersDatabase) {
+    if (usersDatabase.hasOwnProperty(key)) {
+      const element = usersDatabase[key];
+
+      tempBool = element.email !== email;
+    }
+  }
+
+  return tempBool;
 }
