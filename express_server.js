@@ -57,10 +57,10 @@ app.get("/urls", (req, res) => {
 });
 app.post("/urls", (req, res) => {
   let tempID = generateRandomString();
-  let tempLongURL = checkURL(req.body.longURL);
 
   urlDatabase[tempID] = {
-    tempLongURL,
+    id: tempID,
+    longURL: checkURL(req.body.longURL),
     userID: req.cookies["userID"]
   };
   res.redirect(`/urls/${tempID}`);

@@ -19,8 +19,8 @@
   <a href='/urls/new'>Create a new TinyURL</a>
   <hr><br>
   <!-- Add EJS code here -->
-  <h5>TinyURL for <a href=<%=longURL[shortURL] %>>
-      <%= longURL[shortURL] %></a><br></h5>
+  <h5>TinyURL for <a href=<%=longURL[shortURL].longURL %>>
+      <%= longURL[shortURL].longURL %></a><br></h5>
   <a href="/u/<%= shortURL %>">
     <%= shortURL %></a> -
   <%='http://localhost:8080/u/' + shortURL %>
