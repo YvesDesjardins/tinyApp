@@ -73,8 +73,12 @@ app.get("/urls/new", (req, res) => {
   res.render("urls_new", templateVars);
 });
 app.post("/urls/:shortURL/delete", (req, res) => {
-  delete urlDatabase[req.params.shortURL];
-  res.redirect('/urls');
+  if (urlDatabase[req.params.shortURL].userID === req.cookies["userID"]) {
+    delete urlDatabase[req.params.shortURL];
+    res.redirect('/urls');
+  } else {
+    res.status(401).send("Unauthorized Access");
+  }
 });
 
 
@@ -165,8 +169,7 @@ app.post("/register", (req, res) => {
 });
 
 app.get("/u/:shortURL", (req, res) => {
-  const longURL = urlDatabase[req.params.shortURL];
-  res.redirect(longURL);
+  res.redirect(urlDatabase[req.params.shortURL].longURL);
 });
 
 // end responses to client requests
@@ -223,6 +226,5 @@ function urlsForUserID(id) {
     }
   }
 
-  console.log(temp);
   return temp;
 }
