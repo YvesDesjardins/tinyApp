@@ -90,7 +90,10 @@ app.post("/logout", (req, res) => {
 });
 
 app.get("/register", (req, res) => {
-  res.render("register");
+  let templateVars = {
+    username: req.cookies["username"]
+  };
+  res.render("register", templateVars);
 });
 app.post("/register", (req, res) => {
   // checks if username exists, fail if it does, otherwise write new user
@@ -99,11 +102,14 @@ app.post("/register", (req, res) => {
   let user = req.body.username;
   if (usersDatabase[user]) {
     res.redirect("register");
-  }
-  usersDatabase[user] = {
-    username: user,
-    email: req.body.email,
-    password: req.body.password
+  } else {
+    usersDatabase[user] = {
+      username: user,
+      email: req.body.email,
+      password: req.body.password
+    }
+    res.cookie("username", user);
+    res.redirect("/urls");
   }
 });
 

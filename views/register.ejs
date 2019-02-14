@@ -20,16 +20,14 @@
 
   <h3>Register new account</h3>
   <hr><br>
-  <form class="form-inline" action="/resiter" method="POST">
-    <div class="form-group mb-2">
-      <label for="Username">Enter a username:</label>
-      <input class="form-control" type="text" name="username" style="width: 300px; margin: 1em">
-      <label for="Email">Enter a email:</label>
-      <input class="form-control" type="text" name="email" style="width: 300px; margin: 1em">
-      <label for="Password">Enter a password:</label>
-      <input class="form-control" type="text" name="password" style="width: 300px; margin: 1em">
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
+  <form action="/register" method="POST">
+    <label for="Username">Enter a username:</label>
+    <input class="form-control" type="text" name="username" style="width: 300px; margin: 1em">
+    <label for="Email">Enter a email:</label>
+    <input class="form-control" type="text" name="email" style="width: 300px; margin: 1em">
+    <label for="Password">Enter a password:</label>
+    <input class="form-control" type="text" name="password" style="width: 300px; margin: 1em">
+    <button type="submit" class="btn btn-primary">Submit</button>
   </form><br><br>
   <a href='/urls'>Go back</a>
 </body>
