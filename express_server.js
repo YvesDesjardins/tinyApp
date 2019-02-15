@@ -104,16 +104,20 @@ app.get("/urls/:shortURL", (req, res) => {
   if (!req.session.userID) {
     res.status(401).send("Unauthorized Access, please login first");
   }
-  if (urlDatabase[req.params.shortURL].userID === req.session.userID) {
-    let templateVars = {
-      shortURL: req.params.shortURL,
-      longURL: urlDatabase,
-      users: usersDatabase,
-      userID: req.session.userID
-    };
-    res.render("urls_show", templateVars);
+  if (shortExists(req.params.shortURL)) {
+    if (urlDatabase[req.params.shortURL].userID === req.session.userID) {
+      let templateVars = {
+        shortURL: req.params.shortURL,
+        longURL: urlDatabase,
+        users: usersDatabase,
+        userID: req.session.userID
+      };
+      res.render("urls_show", templateVars);
+    } else {
+      res.status(401).send("Unauthorized Access, user has not given you access to this resource"); // eslint-disable-line
+    }
   } else {
-    res.status(401).send("Unauthorized Access, user has not given you access to this resource"); // eslint-disable-line
+    res.status(404).send("This page does not exist"); // eslint-disable-line
   }
 });
 app.post("/urls/:shortURL", (req, res) => {
@@ -133,7 +137,11 @@ app.get("/login", (req, res) => {
     users: usersDatabase,
     userID: req.session.userID
   };
-  res.render('login', templateVars);
+  if (req.session.userID) {
+    res.redirect('/urls');
+  } else {
+    res.render('login', templateVars);
+  }
 });
 app.post("/login", (req, res) => {
   let userEmail = req.body.email;
@@ -157,7 +165,11 @@ app.get("/register", (req, res) => {
     users: usersDatabase,
     userID: req.session.userID
   };
-  res.render("register", templateVars);
+  if (req.session.userID) {
+    res.redirect('/urls');
+  } else {
+    res.render("register", templateVars);
+  }
 });
 app.post("/register", (req, res) => {
   let user = generateRandomString();
@@ -178,7 +190,11 @@ app.post("/register", (req, res) => {
 });
 
 app.get("/u/:shortURL", (req, res) => {
-  res.redirect(urlDatabase[req.params.shortURL].longURL);
+  if (shortExists(req.params.shortURL)) {
+    res.redirect(urlDatabase[req.params.shortURL].longURL);
+  } else {
+    res.status(404).send("This page does not exist"); // eslint-disable-line
+  }
 });
 
 app.listen(PORT);
@@ -197,7 +213,7 @@ function generateRandomNumber(max) {
 }
 
 function checkURL(url) {
-  return url.startsWith('http://') ? url : `http://${url}`;
+  return url.startsWith('http://') || url.startsWith('https://') ? url : `http://${url}`; // eslint-disable-line
 }
 
 function isEmailFree(email) {
@@ -212,6 +228,16 @@ function isEmailFree(email) {
 
 function passwordVerify(id, pass) {
   return bcrypt.compareSync(pass, usersDatabase[id].password); // eslint-disable-line
+}
+
+function shortExists(shortURL) {
+  for (const key in urlDatabase) {
+    if (key === shortURL) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 function emailToID(email) {

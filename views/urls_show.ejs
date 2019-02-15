@@ -22,7 +22,7 @@
   <h4>shortURL :
     <%= shortURL %></a></h4>
 
-  <form class="form-inline" action="/urls/<%= shortURL%>/edit" method="POST">
+  <form class="form-inline" action="/urls/<%= shortURL%>" method="POST">
     <div>
       <input class="form-control" type="text" name="longURL" value="<%= longURL[shortURL].longURL%>" style="width: 300px; margin: 1em">
     </div>

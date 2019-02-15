@@ -20,7 +20,7 @@
   <hr><br>
   <!-- Add EJS code here -->
   <% for(let elem in urls) { %>
-  <form class="form-inline" action="/urls/<%= elem %>" method="POST">
+  <form class="form-inline" action="/urls/<%= elem %>" method="GET">
     <li>
       <a href="/urls/<%= elem %>">
         <%= elem %></a>&nbsp:&nbsp
