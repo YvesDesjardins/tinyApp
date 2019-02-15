@@ -1,8 +1,10 @@
-let express = require("express");
-let app = express();
-let PORT = 8080; // default port 8080
+const express = require("express");
+const app = express();
+const PORT = 8080; // default port 8080
 const bodyParser = require("body-parser");
-let cookieParser = require('cookie-parser')
+const cookieParser = require('cookie-parser')
+const bcrypt = require('bcrypt');
+
 app.use(bodyParser.urlencoded({
   extended: true
 }));
@@ -27,17 +29,17 @@ const usersDatabase = {
   "userRandomID": {
     id: "userRandomID",
     email: "user@example.com",
-    password: "purple-monkey-dinosaur"
+    password: bcrypt.hashSync("purple-monkey-dinosaur", 10)
   },
   "user2RandomID": {
     id: "user2RandomID",
     email: "user2@example.com",
-    password: "dishwasher-funk"
+    password: bcrypt.hashSync("dishwasher-funk", 10)
   },
   "abc123": {
     id: "abc123",
     email: "test",
-    password: "test"
+    password: bcrypt.hashSync("test", 10)
   }
 }
 
@@ -158,7 +160,7 @@ app.post("/register", (req, res) => {
     usersDatabase[user] = {
       id: user,
       email: req.body.email,
-      password: req.body.password
+      password: bcrypt.hashSync(req.body.password, 10)
     };
 
     res.cookie("userID", user);
@@ -205,7 +207,7 @@ function isEmailFree(email) {
 }
 
 function passwordVerify(id, pass) {
-  return usersDatabase[id].password.toString() === pass.toString();
+  return bcrypt.compareSync(pass, usersDatabase[id].password);
 }
 
 function emailToID(email) {
