@@ -24,5 +24,8 @@ TinyApp is a full stack web application built with Node and Express that allows 
 ## Usage 
 
 - Create user account
+  - Optionally you can use the test account
+    - Username: test
+    - Password: test
 - Shorten URLs and share the resulting link
 - You can `edit` or `delete` links you have created
