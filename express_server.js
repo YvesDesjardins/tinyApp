@@ -48,7 +48,11 @@ const usersDatabase = {
 }
 
 app.get("/", (req, res) => {
-  res.redirect('/urls');
+  if (req.session.userID) {
+    res.redirect('/urls');
+  } else {
+    res.redirect('/login');
+  }
 });
 
 app.get("/urls", (req, res) => {
@@ -57,9 +61,16 @@ app.get("/urls", (req, res) => {
     users: usersDatabase,
     userID: req.session.userID
   };
-  res.render("urls_index", templateVars);
+  if (req.session.userID) {
+    res.render("urls_index", templateVars);
+  } else {
+    res.status(401).send("Unauthorized Access, please login first");
+  }
 });
 app.post("/urls", (req, res) => {
+  if (!req.session.userID) {
+    res.status(401).send("Unauthorized Access, please login first");
+  }
   let tempID = generateRandomString();
 
   urlDatabase[tempID] = {
@@ -77,16 +88,22 @@ app.get("/urls/new", (req, res) => {
   res.render("urls_new", templateVars);
 });
 app.post("/urls/:shortURL/delete", (req, res) => {
+  if (!req.session.userID) {
+    res.status(401).send("Unauthorized Access, please login first");
+  }
   if (urlDatabase[req.params.shortURL].userID === req.session.userID) {
     delete urlDatabase[req.params.shortURL];
     res.redirect('/urls');
   } else {
-    res.status(401).send("Unauthorized Access");
+    res.status(401).send("Unauthorized Access, user has not given you access to this resource"); // eslint-disable-line
   }
 });
 
 
 app.get("/urls/:shortURL", (req, res) => {
+  if (!req.session.userID) {
+    res.status(401).send("Unauthorized Access, please login first");
+  }
   if (urlDatabase[req.params.shortURL].userID === req.session.userID) {
     let templateVars = {
       shortURL: req.params.shortURL,
@@ -96,29 +113,18 @@ app.get("/urls/:shortURL", (req, res) => {
     };
     res.render("urls_show", templateVars);
   } else {
-    res.status(401).send("Unauthorized Access");
+    res.status(401).send("Unauthorized Access, user has not given you access to this resource"); // eslint-disable-line
   }
 });
 app.post("/urls/:shortURL", (req, res) => {
-  if (urlDatabase[req.params.shortURL].userID === req.session.userID) {
-    let templateVars = {
-      shortURL: req.params.shortURL,
-      longURL: urlDatabase[req.params.shortURL],
-      users: usersDatabase,
-      userID: req.session.userID
-    };
-    res.render("urls_edit", templateVars);
-  } else {
-    res.status(401).send("Unauthorized Access");
+  if (!req.session.userID) {
+    res.status(401).send("Unauthorized Access, please login first");
   }
-});
-
-app.post("/urls/:shortURL/edit", (req, res) => {
   if (urlDatabase[req.params.shortURL].userID === req.session.userID) {
     urlDatabase[req.params.shortURL].longURL = checkURL(req.body.longURL);
     res.redirect('/urls');
   } else {
-    res.status(401).send("Unauthorized Access");
+    res.status(401).send("Unauthorized Access, user has not given you access to this resource"); // eslint-disable-line
   }
 });
 
