@@ -47,8 +47,6 @@ const usersDatabase = {
   }
 }
 
-// ******************************************************************
-// app responses to client requests
 app.get("/", (req, res) => {
   res.redirect('/urls');
 });
@@ -176,9 +174,6 @@ app.post("/register", (req, res) => {
 app.get("/u/:shortURL", (req, res) => {
   res.redirect(urlDatabase[req.params.shortURL].longURL);
 });
-
-// end responses to client requests
-// ******************************************************************
 
 app.listen(PORT);
 
