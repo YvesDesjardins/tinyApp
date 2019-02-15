@@ -33,17 +33,17 @@ const usersDatabase = {
   "userRandomID": {
     id: "userRandomID",
     email: "user@example.com",
-    password: bcrypt.hashSync("purple-monkey-dinosaur", 10)
+    password: bcrypt.hashSync("purple-monkey-dinosaur", 10) // eslint-disable-line
   },
   "user2RandomID": {
     id: "user2RandomID",
     email: "user2@example.com",
-    password: bcrypt.hashSync("dishwasher-funk", 10)
+    password: bcrypt.hashSync("dishwasher-funk", 10) // eslint-disable-line
   },
   "abc123": {
     id: "abc123",
     email: "test",
-    password: bcrypt.hashSync("test", 10)
+    password: bcrypt.hashSync("test", 10) // eslint-disable-line
   }
 }
 
@@ -163,7 +163,7 @@ app.post("/register", (req, res) => {
     usersDatabase[user] = {
       id: user,
       email: req.body.email,
-      password: bcrypt.hashSync(req.body.password, 10)
+      password: bcrypt.hashSync(req.body.password, 10) // eslint-disable-line
     };
 
     req.session.userID = user;
@@ -210,7 +210,7 @@ function isEmailFree(email) {
 }
 
 function passwordVerify(id, pass) {
-  return bcrypt.compareSync(pass, usersDatabase[id].password);
+  return bcrypt.compareSync(pass, usersDatabase[id].password); // eslint-disable-line
 }
 
 function emailToID(email) {
